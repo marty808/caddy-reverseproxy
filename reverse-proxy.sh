@@ -16,12 +16,13 @@ if [ $PROXY_CERT == "INTERNAL"]
 fi
 
 # write caddyfile
-cat > /etc/caddy/Caddyfile << EOF1
+cat > /etc/caddy/Caddyfile << EOF
 $PROXY_FROM {
   tls_internal
   reverse_proxy $PROXY_TO  
 } 
-EOF1
+EOF
 
 # start caddy
+echo "starting caddy..."
 caddy run --config /etc/caddy/Caddyfile --adapter caddyfile 
