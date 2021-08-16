@@ -4,5 +4,5 @@ ENV PROXY_FROM=
 ENV PROXY_TO=
 ENV PROXY_CERT=INTERNAL
 
-COPY reverse-proxy.sh /
-CMD sh -f reverse-proxy.sh
+COPY reverse-proxy.sh /reverse-proxy.sh
+CMD reverse-proxy.sh
