@@ -1,4 +1,4 @@
-FROM: caddy:2-alpine
+FROM caddy:2-alpine
 
 ENV PROXY_FROM=
 ENV PROXY_TO=
