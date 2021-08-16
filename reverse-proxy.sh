@@ -11,7 +11,7 @@ if [ -z $PROXY_TO ]; then
    exit 2
 fi
 
-if [ $PROXY_CERT == "INTERNAL"]
+if [ $PROXY_CERT == "INTERNAL"]; then
    tls_internal="tls internal"
 fi
 
