@@ -11,14 +11,14 @@ if [ -z $PROXY_TO ]; then
    exit 2
 fi
 
-if [ $PROXY_CERT == "INTERNAL"]; then
+if [ $PROXY_CERT == "INTERNAL" ]; then
    tls_internal="tls internal"
 fi
 
 # write caddyfile
 cat > /etc/caddy/Caddyfile << EOF
 $PROXY_FROM {
-  tls_internal
+  $tls_internal
   reverse_proxy $PROXY_TO  
 } 
 EOF
