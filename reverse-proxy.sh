@@ -20,7 +20,9 @@ else
       echo "PROXY_CA_CRT is empty"
       exit 2
    fi
-   cat $PROXY_CA_CRT > /etc/caddy/ca_root.pem
+   # write cert into file
+   echo "$PROXY_CA_CRT" > /etc/caddy/ca_root.pem
+
    tls_directive="tls {
       ca $PROXY_CERT
       ca_root /etc/caddy/ca_root.pem
