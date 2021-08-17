@@ -13,7 +13,7 @@ fi
 
 if [ $PROXY_CERT == "INTERNAL" ]; then
    tls_directive="tls internal"
-else if [ $PROXY_CERT == "" ]; then
+elif [ $PROXY_CERT == "" ]; then
    tls_directive=""
 else
    if [ -z $PROXY_CA_CRT ]; then
