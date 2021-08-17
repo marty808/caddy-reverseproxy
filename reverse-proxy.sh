@@ -12,13 +12,25 @@ if [ -z $PROXY_TO ]; then
 fi
 
 if [ $PROXY_CERT == "INTERNAL" ]; then
-   tls_internal="tls internal"
+   tls_directive="tls internal"
+else if [ $PROXY_CERT == "" ]; then
+   tls_directive=""
+else
+   if [ -z $PROXY_CA_CRT ]; then
+      echo "PROXY_CA_CRT is empty"
+      exit 2
+   fi
+   cat $PROXY_CA_CRT > /etc/caddy/ca_root.pem
+   tls_directive="tls {
+      ca $PROXY_CERT
+      ca_root /etc/caddy/ca_root.pem
+      }"
 fi
 
 # write caddyfile
 cat > /etc/caddy/Caddyfile << EOF
 $PROXY_FROM {
-  $tls_internal
+  $tls_directive
   reverse_proxy $PROXY_TO  
 } 
 EOF
