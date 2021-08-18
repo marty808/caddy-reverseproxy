@@ -22,27 +22,28 @@ else
    else
       if [ -z $PROXY_CA_CRT ]; then
          echo "PROXY_CA_CRT is empty"
-         exit 2
-      fi
-      # write cert into file
-      echo "$PROXY_CA_CRT" > /etc/caddy/ca_root.pem
+         tls_ca_root=""
+      else
+               # write cert into file
+         echo "$PROXY_CA_CRT" > /etc/caddy/ca_root.pem
+         tls_ca_root="ca_root /etc/caddy/ca_root.pem"
+      fi 
 
       tls_directive="tls {
          ca $PROXY_CERT
-         ca_root /etc/caddy/ca_root.pem
+         $tls_ca_root
          }"
    fi
 
    # write caddyfile
-   cat > /etc/caddy/Caddyfile << EOF
-   $PROXY_FROM {
+   echo "$PROXY_FROM {
    $tls_directive
    reverse_proxy $PROXY_TO  
-   } 
-   EOF
+   }" 
+   > /etc/caddy/Caddyfile
 
 fi
 
 # start caddy
 echo "starting caddy..."
-caddy run --config /etc/caddy/Caddyfile --adapter caddyfile 
+caddy run --config /etc/caddy/Caddyfile --adapter caddyfile add
