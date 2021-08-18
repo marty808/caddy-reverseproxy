@@ -1,5 +1,14 @@
 #!/bin/sh
 
+if [ -z $PROXY_CA_CRT ]; then
+   echo "PROXY_CA_CRT is empty"
+   tls_ca_root=""
+else
+   # write cert into file
+   echo "$PROXY_CA_CRT" > /etc/caddy/ca_root.pem
+   tls_ca_root="ca_root /etc/caddy/ca_root.pem"
+fi 
+
 if [ ! -z $PROXY_CFG ]; then
    echo "PROXY_CFG is given -> write into caddyfile"
    echo "$PROXY_CFG" > /etc/caddy/Caddyfile
@@ -20,15 +29,6 @@ else
    elif [ $PROXY_CERT == "" ]; then
       tls_directive=""
    else
-      if [ -z $PROXY_CA_CRT ]; then
-         echo "PROXY_CA_CRT is empty"
-         tls_ca_root=""
-      else
-               # write cert into file
-         echo "$PROXY_CA_CRT" > /etc/caddy/ca_root.pem
-         tls_ca_root="ca_root /etc/caddy/ca_root.pem"
-      fi 
-
       tls_directive="tls {
          ca $PROXY_CERT
          $tls_ca_root
