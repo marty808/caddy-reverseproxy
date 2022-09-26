@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -z $PROXY_CA_CRT ]; then
+if [ -z "$PROXY_CA_CRT" ]; then
    echo "PROXY_CA_CRT is empty"
    tls_ca_root=""
 else
@@ -9,17 +9,17 @@ else
    tls_ca_root="ca_root /etc/caddy/ca_root.pem"
 fi 
 
-if [ ! -z $PROXY_CFG ]; then
+if [ ! -z "$PROXY_CFG" ]; then
    echo "PROXY_CFG is given -> write into caddyfile"
    echo "$PROXY_CFG" > /etc/caddy/Caddyfile
 else
    # check for environment variables
-   if [ -z $PROXY_FROM ]; then
+   if [ -z "$PROXY_FROM" ]; then
       echo "PROXY_FROM is empty"
       exit 2
    fi
 
-   if [ -z $PROXY_TO ]; then
+   if [ -z "$PROXY_TO" ]; then
       echo "PROXY_TO is empty"
       exit 2
    fi
