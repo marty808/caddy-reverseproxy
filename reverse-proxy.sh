@@ -36,7 +36,7 @@ else
    fi
 
    # write caddyfile
-   echo "$PROXY_FROM {
+   echo -e "$PROXY_FROM {
    $tls_directive
    reverse_proxy $PROXY_TO \n}" 
    > /etc/caddy/Caddyfile
