@@ -32,14 +32,14 @@ else
       tls_directive="tls {
          ca $PROXY_CERT
          $tls_ca_root
-      }"
+         }"
    fi
 
    # write caddyfile
-   echo -e "$PROXY_FROM {
+   echo "$PROXY_FROM {
    $tls_directive
-   reverse_proxy $PROXY_TO \n}" 
-   > /etc/caddy/Caddyfile
+   reverse_proxy $PROXY_TO
+}" > /etc/caddy/Caddyfile
 
 fi
 
